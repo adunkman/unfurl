@@ -1,0 +1,35 @@
+{
+  "name": "unfurl",
+  "version": "1.0.0",
+  "description": "A service to expand links into their social media preview forms.",
+  "main": "app/run-locally.js",
+  "scripts": {
+    "start": "node app/run-locally.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adunkman/unfurl.git"
+  },
+  "keywords": [
+    "lambda",
+    "jest",
+    "unfurl",
+    "open-graph"
+  ],
+  "author": "Andrew Dunkman <adunkman@gmail.com> (https://www.dunkman.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adunkman/unfurl/issues"
+  },
+  "homepage": "https://github.com/adunkman/unfurl#readme",
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.0.0",
+    "hapi-lambda": "^1.0.0",
+    "hapi-pino": "^8.2.0",
+    "joi": "^17.2.1"
+  }
+}
