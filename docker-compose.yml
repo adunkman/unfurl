@@ -1,0 +1,20 @@
+version: "2.0"
+services:
+  app:
+    build: .
+    volumes:
+      - ./:/unfurl
+      - /unfurl/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      HOST: "0.0.0.0"
+
+  terraform:
+    build: ./terraform
+    volumes:
+      - ./terraform:/terraform
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
