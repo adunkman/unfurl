@@ -31,6 +31,8 @@ jobs:
       - run:
           name: Build app
           command: docker-compose run app run-script build:production
+      - store_artifacts:
+          path: dist
       - save_docker_compose_image:
           service: app
       - persist_to_workspace:
