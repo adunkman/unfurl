@@ -1,10 +1,11 @@
 version: "2.0"
 services:
   app:
-    build: .
+    build: ./app
     volumes:
-      - ./:/unfurl
-      - /unfurl/node_modules
+      - ./app:/app
+      - ./dist:/dist
+      - /app/node_modules
     ports:
       - "3000:3000"
     environment:

@@ -2,9 +2,10 @@
   "name": "unfurl",
   "version": "1.0.0",
   "description": "A service to expand links into their social media preview forms.",
-  "main": "app/run-locally.js",
+  "main": "run-locally.js",
   "scripts": {
-    "start": "node app/run-locally.js",
+    "start": "node run-locally.js",
+    "build:production": "npm ci --production && (cd / && zip -r dist/lambda.zip app/)",
     "test": "jest"
   },
   "repository": {
