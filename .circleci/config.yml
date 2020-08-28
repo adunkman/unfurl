@@ -29,12 +29,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build app
-          command: docker-compose run app run-script build:production
+          name: Build api
+          command: docker-compose run api run-script build:production
       - store_artifacts:
           path: dist
       - save_docker_compose_image:
-          service: app
+          service: api
       - persist_to_workspace:
           root: ./
           paths:
@@ -71,7 +71,7 @@ jobs:
       - load_docker_compose_image:
           service: terraform
       - load_docker_compose_image:
-          service: app
+          service: api
       - run:
           name: Apply terraform plan
           command: docker-compose run terraform apply plan

@@ -1,0 +1,3 @@
+- Add API key authentication to endpoints
+- Add caching (using Cloudfront?) of outbound HTTP requests
+- Support for temporary API keys for demoing?

@@ -4,8 +4,8 @@
   "description": "A service to expand links into their social media preview forms.",
   "main": "run-locally.js",
   "scripts": {
-    "start": "node run-locally.js",
-    "build:production": "npm ci --production && (cd / && zip -r dist/lambda.zip app/)",
+    "start": "nodemon run-locally.js",
+    "build:production": "npm ci --production && (cd / && zip -r dist/api.zip api/)",
     "test": "jest"
   },
   "repository": {
@@ -25,12 +25,14 @@
   },
   "homepage": "https://github.com/adunkman/unfurl#readme",
   "devDependencies": {
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "@hapi/hapi": "^20.0.0",
-    "hapi-lambda": "^1.0.0",
+    "@hapi/wreck": "^17.0.0",
     "hapi-pino": "^8.2.0",
-    "joi": "^17.2.1"
+    "joi": "^17.2.1",
+    "jsdom": "^16.4.0"
   }
 }

@@ -1,11 +1,11 @@
 version: "2.0"
 services:
-  app:
-    build: ./app
+  api:
+    build: ./api
     volumes:
-      - ./app:/app
+      - ./api:/api
       - ./dist:/dist
-      - /app/node_modules
+      - /api/node_modules
     ports:
       - "3000:3000"
     environment:
@@ -16,6 +16,7 @@ services:
     build: ./terraform
     volumes:
       - ./terraform:/terraform
+      - ./dist:/dist
     environment:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
