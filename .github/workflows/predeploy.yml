@@ -24,14 +24,14 @@ jobs:
 
       - name: Initialize terraform
         run: docker-compose run terraform init
-        if: secrets.AWS_ACCESS_KEY_ID != ""
+        if: github.repository_owner == 'adunkman'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Output terraform plan
         run: docker-compose run terraform plan
-        if: secrets.AWS_ACCESS_KEY_ID != ""
+        if: github.repository_owner == 'adunkman'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
