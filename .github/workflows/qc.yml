@@ -46,6 +46,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Lint files
+        run: npm run lint
+
   plan:
     name: Plan deployment
     runs-on: ubuntu-latest

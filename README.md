@@ -44,11 +44,17 @@ npm start
 
 Use <kbd>CONTROL</kbd> + <kbd>C</kbd> to shutdown the application.
 
+### Editor configuration
+
+We recommend integrating the following with your editor:
+
+- [Prettier](https://prettier.io/) to apply consistent code formatting rules. These rules are enforced on commit, so editor integration significantly reduces frustration.
+
 ## Other documentation
 
-| File | Contents |
-|------|----------|
-| [CONTRIBUTING.md](CONTRIBUTING.md) | How to propose changes to this project and the terms you agree to by contributing
-| [SECURITY.md](SECURITY.md) | How to report security vulnerabilities and other private issues
-| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | The standard of conduct that we require contributors to abide by and how to report conduct violations
-| [LICENSE.md](LICENSE.md) | The license for this software
+| File                                     | Contents                                                                                              |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [CONTRIBUTING.md](CONTRIBUTING.md)       | How to propose changes to this project and the terms you agree to by contributing                     |
+| [SECURITY.md](SECURITY.md)               | How to report security vulnerabilities and other private issues                                       |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | The standard of conduct that we require contributors to abide by and how to report conduct violations |
+| [LICENSE.md](LICENSE.md)                 | The license for this software                                                                         |

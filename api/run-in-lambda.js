@@ -1,11 +1,14 @@
-const server = require('./server');
+const server = require("./server");
 const host = process.env.HOST;
-const logLevel = process.env.LOG_LEVEL || 'info';
+const logLevel = process.env.LOG_LEVEL || "info";
 
 exports.handler = async (event, options = {}) => {
   const request = {
     method: event.requestContext.http.method,
-    url: `${event.rawPath}?${event.rawQueryString}`.replace(`${event.requestContext.stage}/`, ''),
+    url: `${event.rawPath}?${event.rawQueryString}`.replace(
+      `${event.requestContext.stage}/`,
+      ""
+    ),
     headers: event.headers,
     payload: event.body,
   };
