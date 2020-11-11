@@ -6,9 +6,12 @@
     "postinstall": "docker-compose build",
     "build": "docker-compose run api run build",
     "deploy": "docker-compose run terraform apply || true",
-    "lint": "prettier -c .",
-    "lint:fix": "prettier -w .",
-    "test": "docker-compose run api test"
+    "lint": "npm run lint:prettier && npm run lint:tflint",
+    "lint:prettier": "prettier -c .",
+    "lint:prettier:fix": "prettier -w .",
+    "lint:tflint": "docker-compose run tflint",
+    "test": "docker-compose run api test",
+    "scan": "docker-compose run terrascan"
   },
   "devDependencies": {
     "husky": "^4.3.0",
@@ -19,8 +22,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
   }
 }
