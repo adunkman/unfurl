@@ -57,6 +57,16 @@ jobs:
       - name: Lint files
         run: npm run lint
 
+  terrascan:
+    name: Terrascan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Terrascan on Terraform configuration
+        run: docker-compose run terrascan
+
   plan:
     name: Plan deployment
     runs-on: ubuntu-latest
