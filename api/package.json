@@ -5,7 +5,7 @@
   "main": "run-locally.js",
   "scripts": {
     "start": "nodemon run-locally.js",
-    "build:production": "npm ci --production && (cd / && zip -r dist/api.zip api/)",
+    "build": "npm ci --production && (cd ../ && zip -r dist/api.zip api/)",
     "test": "jest"
   },
   "repository": {
@@ -25,10 +25,15 @@
   },
   "homepage": "https://github.com/adunkman/unfurl#readme",
   "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
     "jest": "^26.4.2",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "wait-port": "^0.2.9"
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.0",
     "@hapi/hapi": "^20.0.0",
     "@hapi/wreck": "^17.0.0",
     "hapi-pino": "^8.2.0",

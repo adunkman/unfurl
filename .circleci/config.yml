@@ -30,7 +30,7 @@ jobs:
       - checkout
       - run:
           name: Build api
-          command: docker-compose run api run-script build:production
+          command: docker-compose run api run build
       - store_artifacts:
           path: dist
       - save_docker_compose_image:

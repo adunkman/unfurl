@@ -1,8 +1,8 @@
 const server = require('./server');
+const host = process.env.HOST;
+const logLevel = process.env.LOG_LEVEL || 'info';
 
-exports.handler = async (event) => {
-  const api = await server.init();
-
+exports.handler = async (event, options = {}) => {
   const request = {
     method: event.requestContext.http.method,
     url: `${event.rawPath}?${event.rawQueryString}`.replace(`${event.requestContext.stage}/`, ''),
@@ -10,6 +10,7 @@ exports.handler = async (event) => {
     payload: event.body,
   };
 
+  const api = await server.init(Object.assign({ host, logLevel }, options));
   const response = await api.inject(request);
 
   return {

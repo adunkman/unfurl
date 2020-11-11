@@ -1,5 +1,5 @@
 locals {
-  function_name = "api_lambda"
+  function_name = "api-unfurl-page"
 }
 
 resource "aws_lambda_function" "api_lambda" {
@@ -8,6 +8,7 @@ resource "aws_lambda_function" "api_lambda" {
 
   handler = "api/run-in-lambda.handler"
   runtime = "nodejs12.x"
+  timeout = 10
 
   filename = "../dist/api.zip"
   source_code_hash = filebase64sha256("../dist/api.zip")
@@ -15,6 +16,7 @@ resource "aws_lambda_function" "api_lambda" {
   environment {
     variables = {
       NODE_ENV = "production"
+      HOST = "api.unfurl.page"
     }
   }
 

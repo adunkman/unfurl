@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const Boom = require('@hapi/boom');
-const Page = require('../../models/page');
+const { extractMetadata, summarizeMetadata } = require('../../util/metadata');
+const { httpClient } = require('../../util/httpClient');
 
 module.exports = {
   method: 'GET',
@@ -13,26 +14,35 @@ module.exports = {
         maxheight: Joi.number().min(1),
         url: Joi.string().uri({ scheme: ['http', 'https'] }).required(),
       })
-    }
-  },
-  handler: async ({ query }, h) => {
-    const wreck = h.wreck();
-    const timeout = 3;
-    const { res, payload } = await wreck.get(query.url, {
-      redirects: 10,
-      timeout: timeout * 1000,
-    });
+    },
+    pre: [
+      {
+        method: async (request) => {
+          const client = httpClient(request.log.bind(request));
+          const url = request.query.url;
 
-    if (res.statusCode < 300) {
-      return new Page(payload.toString('utf-8')).toJSON();
-    }
-    else if (res.statusCode < 500) {
-      return Boom.badGateway(
-        `URL ${query.url} returned status code ${res.statusCode}`);
-    }
-    else {
-      return Boom.gatewayTimeout(
-        `URL ${query.url} did not return a response within ${timeout} seconds.`);
-    }
+          try {
+            const { payload } = await client.get(url);
+            return payload.toString('utf-8');
+          }
+          catch (err) {
+            const { statusCode } = err.output;
+
+            if (statusCode) {
+              return Boom.badGateway(
+                `URL ${url} returned status code ${statusCode}`);
+            }
+            else {
+              return Boom.gatewayTimeout(
+                `URL ${url} did not return a response within ${client._defaults.timeout}ms.`);
+            }
+          }
+        },
+        assign: 'html'
+      }
+    ]
+  },
+  handler: async (request) => {
+    return extractMetadata(request.pre.html);
   }
 };

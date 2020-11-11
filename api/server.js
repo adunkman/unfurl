@@ -1,17 +1,23 @@
 const Hapi = require('@hapi/hapi');
-const Wreck = require('@hapi/wreck');
 
-const init = async (host, port) => {
+exports.init = async ({
+  host = 'example.com',
+  port,
+  logLevel = 'fatal',
+} = {}) => {
   const server = Hapi.server({
     host,
     port,
+    tls: process.env.NODE_ENV === 'production',
     routes: {
-      json: {
-        space: 2
-      },
+      json: { space: 2 },
       validate: {
         failAction: (_request, _h, err) => err
       }
+    },
+    router: {
+      isCaseSensitive: false,
+      stripTrailingSlash: true
     }
   });
 
@@ -22,36 +28,10 @@ const init = async (host, port) => {
     plugin: require('hapi-pino'),
     options: {
       prettyPrint: process.env.NODE_ENV !== 'production',
-      redact: ['req.headers.authorization']
+      redact: ['req.headers.authorization'],
+      level: logLevel,
     }
-  });
-
-  server.decorate('toolkit', 'wreck', function () {
-    const wreck = Wreck.defaults({
-      events: true,
-      gunzip: true,
-    });
-
-    wreck.events.on('response', (err, details) => {
-      if (err) {
-        this.request.log('wreck', {
-          request_url: details.uri.href,
-          error: err
-        });
-      }
-      else {
-        this.request.log('wreck', {
-          request_url: details.uri.href,
-          duration_ms: Date.now() - details.start
-        });
-      }
-    });
-
-    return wreck;
   });
 
   return server;
 };
-
-
-module.exports = { init };
