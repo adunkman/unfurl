@@ -1,4 +1,4 @@
-name: Branch
+name: QC
 
 on:
   push:
@@ -38,6 +38,13 @@ jobs:
 
       - name: Run API tests
         run: docker-compose run api test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
   plan:
     name: Plan deployment

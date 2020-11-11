@@ -1,4 +1,4 @@
-name: Main
+name: Release
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    name: Build and deploy
+    name: Deploy
     runs-on: ubuntu-latest
     if: github.repository_owner == 'adunkman'
     steps:
