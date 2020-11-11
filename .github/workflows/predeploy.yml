@@ -22,5 +22,16 @@ jobs:
       - name: Run API tests
         run: docker-compose run api test
 
+      - name: Initialize terraform
+        run: docker-compose run terraform init
+        if: secrets.AWS_ACCESS_KEY_ID != ""
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Output terraform plan
         run: docker-compose run terraform plan
+        if: secrets.AWS_ACCESS_KEY_ID != ""
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
