@@ -1,0 +1,26 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "start": "docker-compose up api || true",
+    "postinstall": "docker-compose build",
+    "build": "docker-compose run api run build",
+    "deploy": "docker-compose run terraform apply || true",
+    "lint": "npm run lint:prettier && npm run lint:tflint",
+    "lint:prettier": "prettier -c .",
+    "lint:prettier:fix": "prettier -w .",
+    "lint:tflint": "docker-compose run tflint",
+    "test": "docker-compose run api test",
+    "scan": "docker-compose run terrascan"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

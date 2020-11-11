@@ -7,5 +7,5 @@
  */
 exports.pluck = (object, ...keys) => {
   const key = keys.find((key) => object.hasOwnProperty(key));
-  return object[key] || '';
+  return object[key] || "";
 };

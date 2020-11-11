@@ -20,3 +20,15 @@ services:
     environment:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+
+  terrascan:
+    image: accurics/terrascan
+    volumes:
+      - ./terraform:/terraform
+    command: scan -d /terraform
+
+  tflint:
+    image: wata727/tflint
+    volumes:
+      - ./terraform:/terraform
+    entrypoint: tflint /terraform

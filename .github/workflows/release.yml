@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'adunkman'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build API and Terraform docker images
+        run: docker-compose build api terraform
+
+      - name: Build API Lambda bundle
+        run: docker-compose run api run build
+
+      - name: Store API Lambda bundle as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: API Lambda bundle
+          if-no-files-found: error
+          path: dist/*.zip
+
+      - name: Initialize Terraform
+        run: docker-compose run terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Apply Terraform plan
+        run: docker-compose run terraform apply --auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -10,6 +10,7 @@ resource "aws_lambda_function" "api_lambda" {
   runtime = "nodejs12.x"
   timeout = 10
 
+  # built by api docker image, path set through docker-compose volume
   filename = "../dist/api.zip"
   source_code_hash = filebase64sha256("../dist/api.zip")
 

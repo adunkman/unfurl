@@ -1,5 +1,5 @@
-const { JSDOM } = require('jsdom');
-const { pluck } = require('./pluck');
+const { JSDOM } = require("jsdom");
+const { pluck } = require("./pluck");
 
 /**
  * Extract metadata from <meta> tags in a string of HTML.
@@ -9,12 +9,16 @@ const { pluck } = require('./pluck');
  */
 exports.extractMetadata = (html) => {
   const document = new JSDOM(html).window.document;
-  const tags = [...document.querySelectorAll('meta')];
+  const tags = [...document.querySelectorAll("meta")];
 
-  return Object.fromEntries(tags.map(tag => [
-    tag.getAttribute('name') || tag.getAttribute('property') || '',
-    tag.getAttribute('content')
-  ]).filter(([key]) => !!key));
+  return Object.fromEntries(
+    tags
+      .map((tag) => [
+        tag.getAttribute("name") || tag.getAttribute("property") || "",
+        tag.getAttribute("content"),
+      ])
+      .filter(([key]) => !!key)
+  );
 };
 
 /**
@@ -25,7 +29,12 @@ exports.extractMetadata = (html) => {
  */
 exports.summarizeMetadata = (metadata) => {
   return {
-    title: pluck(metadata, 'title', 'og:title', 'twitter:title'),
-    description: pluck(metadata, 'description', 'og:description', 'twitter:description'),
-  }
+    title: pluck(metadata, "title", "og:title", "twitter:title"),
+    description: pluck(
+      metadata,
+      "description",
+      "og:description",
+      "twitter:description"
+    ),
+  };
 };
