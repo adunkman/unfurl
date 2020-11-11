@@ -4,7 +4,7 @@ services:
     build: ./api
     volumes:
       - ./api:/api
-      - dist:/dist
+      - ./dist:/dist
       - /api/node_modules
     ports:
       - "3000:3000"
@@ -16,10 +16,7 @@ services:
     build: ./terraform
     volumes:
       - ./terraform:/terraform
-      - dist:/dist
+      - ./dist:/dist
     environment:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-
-volumes:
-  dist:
