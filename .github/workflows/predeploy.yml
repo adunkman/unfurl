@@ -1,0 +1,26 @@
+name: Pre-deploy
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Pre-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build docker images
+        run: docker-compose build
+
+      - name: Build API
+        run: docker-compose run api run build
+
+      - name: Run API tests
+        run: docker-compose run api test
+
+      - name: Output terraform plan
+        run: docker-compose run terraform plan

@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "start": "docker-compose up api || true",
+    "postinstall": "docker-compose build",
+    "build": "docker-compose run api run build",
+    "deploy": "docker-compose run terraform apply || true",
+    "test": "docker-compose run api test"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  }
+}
