@@ -2,3 +2,4 @@
 - Add caching (using Cloudfront?) of outbound HTTP requests
 - Support for temporary API keys for demoing?
 - Linting
+- Fix terrascan results

@@ -6,7 +6,7 @@ resource "aws_lambda_function" "api_lambda" {
   function_name = local.function_name
   role = aws_iam_role.api_lambda.arn
 
-  handler = "api/run-in-lambda.handler"
+  handler = "api/dist/run-in-lambda.bundle.handler"
   runtime = "nodejs12.x"
   timeout = 10
 
@@ -17,6 +17,7 @@ resource "aws_lambda_function" "api_lambda" {
   environment {
     variables = {
       NODE_ENV = "production"
+      NODE_OPTIONS = "--enable-source-maps"
       HOST = "api.unfurl.page"
     }
   }
