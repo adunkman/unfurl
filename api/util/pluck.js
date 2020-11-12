@@ -6,6 +6,6 @@
  * @returns the value of the first matched key, or an empty string
  */
 exports.pluck = (object, ...keys) => {
-  const key = keys.find((key) => object.hasOwnProperty(key));
-  return object[key] || "";
+  const key = keys.find(key => object.hasOwnProperty(key));
+  return object[key] || '';
 };

@@ -1,4 +1,4 @@
-version: "2.0"
+version: '2.0'
 services:
   api:
     build: ./api
@@ -7,10 +7,10 @@ services:
       - ./dist:/dist
       - /api/node_modules
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       PORT: 3000
-      HOST: "0.0.0.0"
+      HOST: '0.0.0.0'
 
   terraform:
     build: ./terraform
@@ -18,8 +18,8 @@ services:
       - ./terraform:/terraform
       - ./dist:/dist
     environment:
-      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
+      AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
 
   terrascan:
     image: accurics/terrascan
