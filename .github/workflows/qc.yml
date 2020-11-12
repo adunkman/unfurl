@@ -67,8 +67,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Terrascan on Terraform configuration
-        run: docker-compose run terrascan
+      - name: Run tfsec on Terraform configuration
+        run: docker-compose run tfsec
 
   plan:
     name: Plan deployment

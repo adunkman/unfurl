@@ -11,7 +11,7 @@
     "lint:prettier:fix": "prettier -w .",
     "lint:tflint": "docker-compose run tflint",
     "test": "docker-compose run api test",
-    "scan": "docker-compose run terrascan"
+    "scan": "docker-compose run tfsec"
   },
   "devDependencies": {
     "husky": "^4.3.0",

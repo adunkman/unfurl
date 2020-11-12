@@ -50,6 +50,16 @@ We recommend integrating the following with your editor:
 
 - [Prettier](https://prettier.io/) to apply consistent code formatting rules. These rules are enforced on commit, so editor integration significantly reduces frustration.
 
+## Managing secrets
+
+Secrets needed beyond AWS credentials are encrypted in this repository using [sops](https://github.com/mozilla/sops). To edit the encrypted files in `terraform/vault`, specify the file to edit like this:
+
+```bash
+docker-compose run --entrypoint sops terraform vault/internal.enc.yml
+```
+
+Your AWS credentials must be accessible in the environment, and they must be able to access the encryption key in AWS KMS.
+
 ## Other documentation
 
 | File                                     | Contents                                                                                              |

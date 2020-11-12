@@ -5,6 +5,7 @@ locals {
 resource "aws_cloudfront_distribution" "primary" {
   enabled = true
   is_ipv6_enabled = true
+  web_acl_id = aws_wafv2_web_acl.primary.id
 
   aliases = [ "unfurl.page" ]
 
@@ -18,6 +19,11 @@ resource "aws_cloudfront_distribution" "primary" {
   origin {
     domain_name = aws_s3_bucket.ui.website_endpoint
     origin_id = local.s3_origin_id
+
+    custom_header {
+      name = "Referer"
+      value = module.vault.ui_bucket_shared_secret
+    }
 
     custom_origin_config {
       http_port = 80
@@ -46,7 +52,7 @@ resource "aws_cloudfront_distribution" "primary" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.primary.arn
-    minimum_protocol_version = "TLSv1.2_2018"
+    minimum_protocol_version = "TLSv1.2_2019"
     ssl_support_method = "sni-only"
   }
 
@@ -54,5 +60,42 @@ resource "aws_cloudfront_distribution" "primary" {
     geo_restriction {
       restriction_type = "none"
     }
+  }
+}
+
+resource "aws_wafv2_web_acl" "primary" {
+  name = "primary"
+  scope = "REGIONAL"
+
+  default_action {
+    block {}
+  }
+
+  rule {
+    name = "standard-rate-limit"
+    priority = 1
+
+    action {
+      count {}
+    }
+
+    statement {
+      rate_based_statement {
+        limit = 10000
+        aggregate_key_type = "IP"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = false
+      metric_name = "standard-rate-limit"
+      sampled_requests_enabled = false
+    }
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = false
+    metric_name = "primary"
+    sampled_requests_enabled   = false
   }
 }

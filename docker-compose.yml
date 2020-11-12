@@ -20,12 +20,13 @@ services:
     environment:
       AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
       AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
+      SOPS_KMS_ARN: arn:aws:kms:us-east-1:885514992300:key/f8193811-a18f-4d06-9389-2c9af5c27f7d
 
-  terrascan:
-    image: accurics/terrascan
+  tfsec:
+    image: liamg/tfsec
     volumes:
       - ./terraform:/terraform
-    command: scan -d /terraform
+    entrypoint: tfsec /terraform
 
   tflint:
     image: wata727/tflint
