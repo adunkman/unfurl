@@ -1,5 +1,4 @@
 - Add API key authentication to endpoints
 - Add caching (using Cloudfront?) of outbound HTTP requests
 - Support for temporary API keys for demoing?
-- Linting
-- Fix tfsec results
+- Figure out how to hide vault secrets in terraform outputs
