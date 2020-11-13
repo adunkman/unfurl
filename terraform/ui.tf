@@ -5,14 +5,17 @@ resource "aws_s3_bucket" "ui" {
   bucket = "unfurl.page"
   acl = "private"
 
-  website {
-    index_document = "index.html"
-    error_document = "404.html"
-  }
-
   versioning {
     enabled = true
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "ui" {
+  bucket = aws_s3_bucket.ui.id
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_policy" "ui" {
@@ -22,16 +25,16 @@ resource "aws_s3_bucket_policy" "ui" {
 
 data "aws_iam_policy_document" "allow_cloudfront_read" {
   statement {
-    actions = ["s3:GetObject","s3:GetObjectVersion"]
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion"
+    ]
+
     resources = ["${aws_s3_bucket.ui.arn}/*"]
+
     principals {
-      type = "*"
-      identifiers = ["*"]
-    }
-    condition {
-      test = "StringLike"
-      variable = "aws:Referer"
-      values = [module.vault.ui_bucket_shared_secret]
+      type = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.ui_oai.iam_arn]
     }
   }
 }

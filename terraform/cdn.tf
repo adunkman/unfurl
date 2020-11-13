@@ -5,9 +5,10 @@ locals {
 resource "aws_cloudfront_distribution" "primary" {
   enabled = true
   is_ipv6_enabled = true
-  web_acl_id = aws_wafv2_web_acl.primary.id
+  web_acl_id = aws_wafv2_web_acl.primary.arn
 
   aliases = [ "unfurl.page" ]
+  default_root_object = "index.html"
 
   custom_error_response {
     error_caching_min_ttl = 3600
@@ -17,19 +18,11 @@ resource "aws_cloudfront_distribution" "primary" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.ui.website_endpoint
+    domain_name = aws_s3_bucket.ui.bucket_regional_domain_name
     origin_id = local.s3_origin_id
 
-    custom_header {
-      name = "Referer"
-      value = module.vault.ui_bucket_shared_secret
-    }
-
-    custom_origin_config {
-      http_port = 80
-      https_port = 443
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols = ["TLSv1.2"]
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.ui_oai.cloudfront_access_identity_path
     }
   }
 
@@ -63,17 +56,88 @@ resource "aws_cloudfront_distribution" "primary" {
   }
 }
 
+
+resource "aws_cloudfront_origin_access_identity" "ui_oai" {
+  comment = "ui_oai"
+}
+
 resource "aws_wafv2_web_acl" "primary" {
   name = "primary"
-  scope = "REGIONAL"
+  scope = "CLOUDFRONT"
 
   default_action {
     block {}
   }
 
   rule {
-    name = "standard-rate-limit"
+    name = "AWS-AWSManagedRulesAmazonIpReputationList"
+    priority = 0
+
+    override_action {
+      none {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name = "AWSManagedRulesAmazonIpReputationList"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name = "AWS-AWSManagedRulesAmazonIpReputationList"
+      sampled_requests_enabled = true
+    }
+  }
+
+  rule {
+    name = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
     priority = 1
+
+    override_action {
+      none {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name = "AWSManagedRulesKnownBadInputsRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
+      sampled_requests_enabled = true
+    }
+  }
+
+  rule {
+    name = "AWS-AWSManagedRulesCommonRuleSet"
+    priority = 2
+
+    override_action {
+      none {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name = "AWS-AWSManagedRulesCommonRuleSet"
+      sampled_requests_enabled = true
+    }
+  }
+
+  rule {
+    name = "standard-rate-limit"
+    priority = 3
 
     action {
       count {}
@@ -87,9 +151,9 @@ resource "aws_wafv2_web_acl" "primary" {
     }
 
     visibility_config {
-      cloudwatch_metrics_enabled = false
+      cloudwatch_metrics_enabled = true
       metric_name = "standard-rate-limit"
-      sampled_requests_enabled = false
+      sampled_requests_enabled = true
     }
   }
 
