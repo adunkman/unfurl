@@ -66,7 +66,7 @@ resource "aws_wafv2_web_acl" "primary" {
   scope = "CLOUDFRONT"
 
   default_action {
-    block {}
+    allow {}
   }
 
   rule {
@@ -131,28 +131,6 @@ resource "aws_wafv2_web_acl" "primary" {
     visibility_config {
       cloudwatch_metrics_enabled = true
       metric_name = "AWS-AWSManagedRulesCommonRuleSet"
-      sampled_requests_enabled = true
-    }
-  }
-
-  rule {
-    name = "standard-rate-limit"
-    priority = 3
-
-    action {
-      count {}
-    }
-
-    statement {
-      rate_based_statement {
-        limit = 10000
-        aggregate_key_type = "IP"
-      }
-    }
-
-    visibility_config {
-      cloudwatch_metrics_enabled = true
-      metric_name = "standard-rate-limit"
       sampled_requests_enabled = true
     }
   }
