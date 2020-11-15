@@ -52,6 +52,7 @@ resource "aws_apigatewayv2_stage" "production" {
 
 resource "aws_cloudwatch_log_group" "production_proxy" {
   name = "/aws/apigateway/${aws_apigatewayv2_api.primary.name}"
+  retention_in_days = 30
 }
 
 resource "aws_apigatewayv2_api_mapping" "primary" {
