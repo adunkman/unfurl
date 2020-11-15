@@ -24,7 +24,7 @@ exports.init = async ({
   server.route(require('./routes/get'));
   server.route(require('./routes/page/get'));
 
-  server.register({
+  await server.register({
     plugin: require('hapi-pino'),
     options: {
       prettyPrint: process.env.NODE_ENV !== 'production',
@@ -32,6 +32,8 @@ exports.init = async ({
       level: logLevel,
     },
   });
+
+  await server.initialize();
 
   return server;
 };
