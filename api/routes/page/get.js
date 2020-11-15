@@ -45,6 +45,10 @@ module.exports = {
     ],
   },
   handler: async request => {
-    return extractMetadata(request.pre.html);
+    const meta = extractMetadata(request.pre.html);
+    return {
+      ...summarizeMetadata(meta),
+      meta,
+    };
   },
 };

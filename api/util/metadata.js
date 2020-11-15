@@ -11,14 +11,17 @@ exports.extractMetadata = html => {
   const document = new JSDOM(html).window.document;
   const tags = [...document.querySelectorAll('meta')];
 
-  return Object.fromEntries(
-    tags
-      .map(tag => [
-        tag.getAttribute('name') || tag.getAttribute('property') || '',
-        tag.getAttribute('content'),
-      ])
-      .filter(([key]) => !!key),
-  );
+  return {
+    ...Object.fromEntries(
+      tags
+        .map(tag => [
+          tag.getAttribute('name') || tag.getAttribute('property') || '',
+          tag.getAttribute('content'),
+        ])
+        .filter(([key]) => !!key),
+    ),
+    title: document.title,
+  };
 };
 
 /**
