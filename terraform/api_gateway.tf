@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_api" "primary" {
-  name = "api.unfurl.page"
+  name = "api-unfurl-page"
   protocol_type = "HTTP"
 }
 
