@@ -6,7 +6,7 @@ resource "aws_lambda_function" "api_lambda" {
   function_name = local.function_name
   role = aws_iam_role.api_lambda.arn
 
-  handler = "api/dist/run-in-lambda.bundle.handler"
+  handler = "api/dist/run-in-lambda.handler"
   runtime = "nodejs12.x"
   timeout = 10
 
