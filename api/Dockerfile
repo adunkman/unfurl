@@ -5,5 +5,6 @@ WORKDIR /api
 COPY ./package*.json ./
 RUN npm ci
 
+EXPOSE 3000
 ENTRYPOINT ["npm"]
 CMD ["start"]
