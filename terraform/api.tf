@@ -9,6 +9,7 @@ resource "aws_lambda_function" "api_lambda" {
   handler = "api/dist/run-in-lambda.handler"
   runtime = "nodejs12.x"
   timeout = 10
+  memory_size = 512
 
   # built by api docker image, path set through docker-compose volume
   filename = "../dist/api.zip"
