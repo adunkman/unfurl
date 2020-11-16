@@ -1,4 +1,4 @@
-const server = require('./server');
+const server = require('./server/index');
 const host = process.env.HOST;
 const logLevel = process.env.LOG_LEVEL || 'info';
 

@@ -8,9 +8,16 @@ services:
       - /api/node_modules
     ports:
       - '3000:3000'
+    links:
+      - dynamodb
     environment:
       PORT: 3000
       HOST: '0.0.0.0'
+      AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
+      AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
+
+  dynamodb:
+    image: amazon/dynamodb-local
 
   terraform:
     build: ./terraform

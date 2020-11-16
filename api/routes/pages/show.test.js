@@ -1,6 +1,6 @@
 const server = require('../../server');
 
-describe('GET /page', () => {
+describe('GET /pages', () => {
   let api;
 
   beforeAll(async () => {
@@ -10,7 +10,7 @@ describe('GET /page', () => {
   it('requires a url querystring parameter to be specified', async () => {
     const response = await api.inject({
       method: 'get',
-      url: '/page',
+      url: '/pages',
     });
 
     const payload = JSON.parse(response.payload);
