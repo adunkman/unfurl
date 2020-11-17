@@ -1,9 +1,11 @@
 const Joi = require('joi');
+const ApiKey = require('../../models/ApiKey');
 
 module.exports = {
   method: 'POST',
   path: '/keys',
   options: {
+    auth: false,
     validate: {
       payload: Joi.object({
         email: Joi.string().email(),
@@ -12,8 +14,7 @@ module.exports = {
     pre: [
       {
         method: async request => {
-          const { keystore } = request.server.app;
-          return keystore.create({ email: request.payload.email });
+          return ApiKey.create({ email: request.payload.email });
         },
         assign: 'key',
       },

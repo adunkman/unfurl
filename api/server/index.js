@@ -30,7 +30,7 @@ exports.init = async ({
       options: { logLevel },
     },
     {
-      plugin: require('./plugins/keystore'),
+      plugin: require('./plugins/persistence'),
       options: { dynamoDBEndpoint },
     },
     require('./plugins/authentication'),

@@ -1,4 +1,5 @@
 const Boom = require('@hapi/boom');
+const ApiKey = require('../../models/ApiKey');
 
 module.exports = {
   name: __filename,
@@ -10,8 +11,7 @@ module.exports = {
       allowQueryToken: true,
       tokenType: 'Key',
       validate: async (request, token, h) => {
-        const { keystore } = request.server.app;
-        const key = await keystore.get({ key: token });
+        const key = await ApiKey.find({ key: token });
 
         return {
           isValid: !!key,
