@@ -8,7 +8,7 @@ const logLevel = process.env.LOG_LEVEL || 'debug';
     host,
     port,
     logLevel,
-    dynamoDBEndpoint: 'dynamodb.us-east-1.amazonaws.com',
+    dynamoDBEndpoint: 'http://dynamodb:8000',
   });
 
   api.start();

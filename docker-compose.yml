@@ -4,39 +4,20 @@ services:
     build: ./api
     volumes:
       - ./api:/api
-      - ./dist:/dist
+      - ./tmp/dist:/tmp/dist
       - /api/node_modules
     ports:
       - '3000:3000'
-    links:
+    depends_on:
       - dynamodb
     environment:
+      AWS_ACCESS_KEY_ID: fake-local-key
+      AWS_SECRET_ACCESS_KEY: fake-local-secret
       PORT: 3000
       HOST: '0.0.0.0'
-      AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
-      AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
 
   dynamodb:
     image: amazon/dynamodb-local
-
-  terraform:
-    build: ./terraform
+    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
     volumes:
-      - ./terraform:/terraform
-      - ./dist:/dist
-    environment:
-      AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
-      AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
-      SOPS_KMS_ARN: arn:aws:kms:us-east-1:885514992300:key/f8193811-a18f-4d06-9389-2c9af5c27f7d
-
-  tfsec:
-    image: liamg/tfsec
-    volumes:
-      - ./terraform:/terraform
-    entrypoint: tfsec /terraform
-
-  tflint:
-    image: wata727/tflint
-    volumes:
-      - ./terraform:/terraform
-    entrypoint: tflint /terraform
+      - ./tmp/dynamodb:/data

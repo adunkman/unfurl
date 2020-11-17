@@ -1,6 +1,4 @@
 const Hapi = require('@hapi/hapi');
-const { promisify } = require('util');
-const glob = promisify(require('glob'));
 
 exports.init = async ({
   host = 'example.com',
@@ -37,9 +35,11 @@ exports.init = async ({
     require('./plugins/friendlyErrors'),
   ]);
 
-  const routes = await glob('../routes/**/!(*.test).js', { cwd: __dirname });
-
-  server.route(routes.map(require));
+  server.route(require('../routes/index'));
+  server.route(require('../routes/keys/destroy'));
+  server.route(require('../routes/keys/index'));
+  server.route(require('../routes/keys/new'));
+  server.route(require('../routes/pages/show'));
 
   await server.initialize();
 

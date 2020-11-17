@@ -1,6 +1,9 @@
 const server = require('./server/index');
-const host = process.env.HOST;
-const logLevel = process.env.LOG_LEVEL || 'info';
+const config = {
+  host: process.env.HOST,
+  logLevel: process.env.LOG_LEVEL || 'info',
+  dynamoDBEndpoint: 'https://dynamodb.us-east-1.amazonaws.com',
+};
 
 exports.handler = async (event, options = {}) => {
   const request = {
@@ -13,7 +16,7 @@ exports.handler = async (event, options = {}) => {
     payload: event.body,
   };
 
-  const api = await server.init(Object.assign({ host, logLevel }, options));
+  const api = await server.init({ ...config, ...options });
   const response = await api.inject(request);
 
   return {

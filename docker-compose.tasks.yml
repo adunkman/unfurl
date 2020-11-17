@@ -1,0 +1,23 @@
+version: '2.0'
+services:
+  terraform:
+    build: ./terraform
+    volumes:
+      - ./terraform:/terraform
+      - ./tmp/dist:/tmp/dist
+    environment:
+      AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
+      AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
+      SOPS_KMS_ARN: arn:aws:kms:us-east-1:885514992300:key/f8193811-a18f-4d06-9389-2c9af5c27f7d
+
+  tfsec:
+    image: liamg/tfsec
+    volumes:
+      - ./terraform:/terraform
+    entrypoint: tfsec /terraform
+
+  tflint:
+    image: wata727/tflint
+    volumes:
+      - ./terraform:/terraform
+    entrypoint: tflint /terraform

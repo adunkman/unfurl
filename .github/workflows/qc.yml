@@ -24,7 +24,7 @@ jobs:
         with:
           name: API Lambda bundle
           if-no-files-found: error
-          path: dist/*.zip
+          path: tmp/dist/*.zip
 
   test:
     name: Test
@@ -58,7 +58,7 @@ jobs:
         run: npm run lint:prettier
 
       - name: Lint files with tflint
-        run: docker-compose run tflint
+        run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run tflint
 
   scan:
     name: Scan
@@ -68,7 +68,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run tfsec on Terraform configuration
-        run: docker-compose run tfsec
+        run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run tfsec
 
   plan:
     name: Plan deployment
@@ -83,19 +83,19 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: API Lambda bundle
-          path: dist
+          path: tmp/dist
 
       - name: Build Terraform docker image
-        run: docker-compose build terraform
+        run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml build terraform
 
       - name: Initialize Terraform
-        run: docker-compose run terraform init
+        run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run terraform init
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Output Terraform plan
-        run: docker-compose run terraform plan
+        run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

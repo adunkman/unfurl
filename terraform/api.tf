@@ -12,8 +12,8 @@ resource "aws_lambda_function" "api_lambda" {
   memory_size = 512
 
   # built by api docker image, path set through docker-compose volume
-  filename = "../dist/api.zip"
-  source_code_hash = filebase64sha256("../dist/api.zip")
+  filename = "/tmp/dist/api.zip"
+  source_code_hash = filebase64sha256("/tmp/dist/api.zip")
 
   environment {
     variables = {

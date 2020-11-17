@@ -11,6 +11,40 @@ module.exports = {
       allowQueryToken: true,
       tokenType: 'Key',
       validate: async (request, token, h) => {
+        if (process.env.NODE_ENV === 'test') {
+          if (token === 'test-consumer-token') {
+            return {
+              isValid: true,
+              credentials: new ApiKey({
+                api_key: token,
+                api_version: 1,
+                owner_email: 'consumer@example.com',
+                owner_email_confirmed: true,
+                role: 'consumer',
+                created_at: new Date().toISOString(),
+              }),
+            };
+          }
+
+          if (token === 'test-admin-token') {
+            return {
+              isValid: true,
+              credentials: new ApiKey({
+                api_key: token,
+                api_version: 1,
+                owner_email: 'admin@example.com',
+                owner_email_confirmed: true,
+                role: 'admin',
+                created_at: new Date().toISOString(),
+              }),
+            };
+          }
+
+          return {
+            isValid: false,
+          };
+        }
+
         const key = await ApiKey.find({ key: token });
 
         return {
