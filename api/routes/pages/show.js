@@ -5,13 +5,10 @@ const { httpClient } = require('../../util/httpClient');
 
 module.exports = {
   method: 'GET',
-  path: '/page',
+  path: '/pages',
   options: {
     validate: {
       query: Joi.object({
-        format: Joi.string().valid('json').default('json'),
-        maxwidth: Joi.number().min(1),
-        maxheight: Joi.number().min(1),
         url: Joi.string()
           .uri({ scheme: ['http', 'https'] })
           .required(),
@@ -45,6 +42,10 @@ module.exports = {
     ],
   },
   handler: async request => {
-    return extractMetadata(request.pre.html);
+    const meta = extractMetadata(request.pre.html);
+    return {
+      ...summarizeMetadata(meta),
+      meta,
+    };
   },
 };

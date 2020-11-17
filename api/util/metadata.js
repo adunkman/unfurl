@@ -17,7 +17,12 @@ exports.extractMetadata = html => {
         tag.getAttribute('name') || tag.getAttribute('property') || '',
         tag.getAttribute('content'),
       ])
-      .filter(([key]) => !!key),
+      .concat(
+        Object.entries({
+          title: document.title,
+        }),
+      )
+      .filter(([key, value]) => key && value),
   );
 };
 

@@ -21,3 +21,8 @@ provider "aws" {
 module "vault" {
   source = "./vault"
 }
+
+module "db" {
+  source = "./db"
+  dynamodb_endpoint = var.dynamodb_endpoint
+}

@@ -2,16 +2,20 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "start": "docker-compose up api || true",
-    "postinstall": "docker-compose build",
+    "start": "docker-compose up || true",
+    "seed": "docker-compose up -d dynamodb && npm run seed:init && npm run seed:apply && docker-compose stop dynamodb",
+    "seed:init": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run -w /terraform/db terraform init",
+    "seed:apply": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run -w /terraform/db terraform apply",
+    "postinstall": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml build",
     "build": "docker-compose run api run build",
-    "deploy": "docker-compose run terraform apply || true",
+    "deploy:init": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run terraform init || true",
+    "deploy:apply": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run terraform apply || true",
     "lint": "npm run lint:prettier && npm run lint:tflint",
     "lint:prettier": "prettier -c .",
     "lint:prettier:fix": "prettier -w .",
-    "lint:tflint": "docker-compose run tflint",
+    "lint:tflint": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run tflint",
     "test": "docker-compose run api test",
-    "scan": "docker-compose run tfsec"
+    "scan": "docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run tfsec"
   },
   "devDependencies": {
     "husky": "^4.3.0",
