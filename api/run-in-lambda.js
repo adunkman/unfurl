@@ -13,7 +13,7 @@ exports.handler = async (event, options = {}) => {
       '',
     ),
     headers: event.headers,
-    payload: event.body,
+    payload: Buffer.from(event.body || '', 'base64').toString(),
   };
 
   const api = await server.init({ ...config, ...options });
