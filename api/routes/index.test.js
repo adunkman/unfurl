@@ -22,6 +22,6 @@ describe('GET /', () => {
       'https://www.unfurl.page/documentation',
     );
 
-    expect(payload).toHaveProperty('page_url', 'http://example.com/page');
+    expect(payload).toHaveProperty('page_url', 'http://example.com/pages');
   });
 });
