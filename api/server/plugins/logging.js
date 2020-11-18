@@ -1,5 +1,5 @@
 module.exports = {
-  name: __filename,
+  name: 'unfurl/plugins/logging',
   register: async (server, options) => {
     await server.register({
       plugin: require('hapi-pino'),

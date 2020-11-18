@@ -1,7 +1,7 @@
 const DynamoDbStoredModel = require('../../persistence/DynamoDbStoredModel');
 
 module.exports = {
-  name: __filename,
+  name: 'unfurl/plugins/persistence',
   register: async (server, { dynamoDBEndpoint }) => {
     DynamoDbStoredModel.configure({ endpoint: dynamoDBEndpoint });
   },

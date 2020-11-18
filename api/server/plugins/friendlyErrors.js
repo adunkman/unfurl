@@ -1,5 +1,5 @@
 module.exports = {
-  name: __filename,
+  name: 'unfurl/plugins/friendlyErrors',
   register: async server => {
     server.ext('onPreResponse', (request, h) => {
       const { response } = request;

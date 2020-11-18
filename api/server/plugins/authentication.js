@@ -2,7 +2,7 @@ const Boom = require('@hapi/boom');
 const ApiKey = require('../../models/ApiKey');
 
 module.exports = {
-  name: __filename,
+  name: 'unfurl/plugins/authentication',
   register: async (server, options) => {
     await server.register(require('hapi-auth-bearer-token'));
 
