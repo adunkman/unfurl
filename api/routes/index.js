@@ -7,7 +7,7 @@ module.exports = {
   handler: ({ server }) => {
     return {
       documentation_url: 'https://www.unfurl.page/documentation',
-      page_url: `${server.info.uri}/page`,
+      page_url: `${server.info.uri}/pages`,
     };
   },
 };
