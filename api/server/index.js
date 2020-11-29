@@ -1,15 +1,14 @@
 const Hapi = require('@hapi/hapi');
 
-exports.init = async ({
-  host = 'example.com',
-  port,
-  logLevel = 'fatal',
-  dynamoDBEndpoint,
-} = {}) => {
+exports.init = async (
+  { host = 'example.com', uiUrl, port, logLevel = 'fatal' } = {},
+  services = {},
+) => {
   const server = Hapi.server({
     host,
     port,
     tls: process.env.NODE_ENV === 'production',
+    app: { uiUrl },
     routes: {
       json: { space: 2 },
       validate: {
@@ -28,10 +27,10 @@ exports.init = async ({
       options: { logLevel },
     },
     {
-      plugin: require('./plugins/persistence'),
-      options: { dynamoDBEndpoint },
+      plugin: require('./plugins/services'),
+      options: services,
     },
-    require('./plugins/authentication'),
+    require('./plugins/authKey'),
     require('./plugins/friendlyErrors'),
   ]);
 

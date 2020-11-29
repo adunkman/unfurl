@@ -1,13 +1,9 @@
 const { v4: uuidV4 } = require('uuid');
-const DynamoDbStoredModel = require('../persistence/DynamoDbStoredModel');
+const DynamoDBStoredModel = require('../persistence/DynamoDBStoredModel');
 
-module.exports = class ApiKey extends DynamoDbStoredModel {
+module.exports = class ApiKey extends DynamoDBStoredModel {
   static tableName = 'api_keys';
   static primaryKey = 'api_key';
-
-  constructor(attributes) {
-    super(attributes);
-  }
 
   get key() {
     return this.attributes.api_key;
