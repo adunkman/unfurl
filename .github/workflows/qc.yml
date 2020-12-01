@@ -55,7 +55,7 @@ jobs:
         run: npm ci
 
       - name: Lint files with prettier
-        run: npm run lint:prettier
+        run: make lint
 
       - name: Lint files with tflint
         run: docker-compose -f docker-compose.yml -f docker-compose.tasks.yml run tflint

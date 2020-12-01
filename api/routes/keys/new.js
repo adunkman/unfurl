@@ -5,7 +5,12 @@ module.exports = {
   method: 'POST',
   path: '/keys',
   options: {
-    auth: false,
+    auth: {
+      strategy: 'cookie',
+      access: {
+        entity: 'user',
+      },
+    },
     validate: {
       payload: Joi.object({
         email: Joi.string().email(),
@@ -13,14 +18,16 @@ module.exports = {
     },
     pre: [
       {
+        assign: 'key',
         method: async request => {
           return ApiKey.create({ email: request.payload.email });
         },
-        assign: 'key',
       },
     ],
   },
   handler: async request => {
-    return request.pre.key;
+    return {
+      key: request.pre.key,
+    };
   },
 };

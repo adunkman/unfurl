@@ -11,24 +11,16 @@ API (and accompanying documentation) for social media-style expansion of links w
 ### Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop) version 1.10.0+ (required)
-- [Node.js](https://nodejs.org/) version 10.0.0+ (recommended) — enables `npm` commands shown in this documentation, `git` hooks for linting, and better editor integration. If you choose not to install Node.js, manually translate the commands from this documentation by looking at `package.json` in the root of this repository.
+- [Node.js](https://nodejs.org/) version 10.0.0+ (recommended) — enables linting, `git` hooks, and better editor integration.
 
 ### Install application dependencies
 
 The majority of dependencies are installed within docker containers, so we recommend always running the application inside of their containers.
 
-To install all dependencies and docker containers, run:
+To prepare for local development by installing all dependencies, building docker containers, and creating local databases run:
 
 ```bash
-npm install
-```
-
-#### Force rebuild of docker images
-
-If you’re experiencing issues running the application especially after returning to the project after some time, try rebuilding the docker containers without caching layers:
-
-```bash
-npm run postinstall -- --no-cache
+make bootstrap
 ```
 
 ### Starting the application
@@ -36,13 +28,38 @@ npm run postinstall -- --no-cache
 Start the application’s docker containers with:
 
 ```bash
-npm start
+make start
 ```
 
 - The documentation pages are available at [localhost:1313](http://localhost:1313).
 - The API is available at [localhost:3000](http://localhost:3000).
 
 Use <kbd>CONTROL</kbd> + <kbd>C</kbd> to shutdown the application.
+
+#### Testing authentication locally
+
+To test endpoints that require key authentication, use API key `test-consumer-token`.
+
+For GitHub authentication, [configure a test OAuth application](https://github.com/settings/applications/new) and add the credentials to a new file called `.env` to be loaded automatically. If you’d like your key to be authorized as an administrator, add your GitHub email to `ADMIN_EMAILS_CSV` as well.
+
+- Homepage URL: http://0.0.0.0:3000
+- Application callback URL: http://0.0.0.0:3000/sessions/new
+
+```
+AUTH_GITHUB_CLIENT_ID=
+AUTH_GITHUB_CLIENT_SECRET=
+ADMIN_EMAILS_CSV=
+```
+
+Restart the server if running.
+
+### Additional development commands
+
+See all available development commands by running:
+
+```
+make
+```
 
 ### Editor configuration
 
@@ -52,10 +69,10 @@ We recommend integrating the following with your editor:
 
 ## Managing secrets
 
-Secrets needed beyond AWS credentials are encrypted in this repository using [sops](https://github.com/mozilla/sops). To edit the encrypted files in `terraform/vault`, specify the file to edit like this:
+Secrets needed beyond AWS credentials are encrypted in this repository using [sops](https://github.com/mozilla/sops). To edit the encrypted files in `terraform/variables.enc.yml`:
 
 ```bash
-docker-compose run --entrypoint sops terraform vault/internal.enc.yml
+make secrets-edit
 ```
 
 Your AWS credentials must be accessible in the environment, and they must be able to access the encryption key in AWS KMS.

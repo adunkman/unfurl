@@ -1,7 +1,7 @@
 const { DynamoDB } = require('aws-sdk');
 const { marshall, unmarshall } = DynamoDB.Converter;
 
-module.exports = class DynamoDbStoredModel {
+module.exports = class DynamoDBStoredModel {
   constructor(attributes) {
     this.attributes = attributes;
   }
@@ -10,11 +10,11 @@ module.exports = class DynamoDbStoredModel {
     return { ...this.attributes };
   }
 
-  static configure({ endpoint }) {
+  static configure(dynamoDBEndpoint) {
     this.adapter = new DynamoDB({
       apiVersion: '2012-08-10',
       region: 'us-east-1',
-      endpoint,
+      endpoint: dynamoDBEndpoint,
     });
   }
 

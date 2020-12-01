@@ -1,12 +1,12 @@
 module.exports = {
   name: 'unfurl/plugins/logging',
-  register: async (server, options) => {
+  register: async (server, { logLevel, isProduction }) => {
     await server.register({
       plugin: require('hapi-pino'),
       options: {
-        prettyPrint: process.env.NODE_ENV !== 'production',
+        prettyPrint: !isProduction,
         redact: ['req.headers.authorization'],
-        level: options.logLevel,
+        level: logLevel,
       },
     });
   },

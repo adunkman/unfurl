@@ -3,7 +3,7 @@ const ApiKey = require('../../models/ApiKey');
 const UserScope = require('../../models/UserScope');
 
 module.exports = {
-  method: 'DELETE',
+  method: 'GET',
   path: '/keys/{key}',
   options: {
     auth: {
@@ -14,6 +14,7 @@ module.exports = {
     },
     pre: [
       {
+        assign: 'key',
         method: async (request, h) => {
           const key = ApiKey.find({ key: request.params.key });
 
@@ -23,18 +24,10 @@ module.exports = {
           );
 
           if (!isAdmin && !isOwnKey) {
-            throw Boom.forbidden(
-              `You are not allowed to modify other API keys. If you intend to delete a key, authenticate using that key to perform this request.`,
-            );
+            throw Boom.notFound();
           }
 
-          return h.continue;
-        },
-      },
-      {
-        assign: 'key',
-        method: async request => {
-          return ApiKey.delete({ key: request.params.key });
+          return key;
         },
       },
     ],

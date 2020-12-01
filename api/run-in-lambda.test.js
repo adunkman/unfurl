@@ -5,6 +5,8 @@ describe('run-in-lambda', () => {
   it('handles a api gateway v2 event for a request to the index', async () => {
     const response = await handler(request, {
       logLevel: 'fatal',
+      githubClientId: 'test',
+      githubClientSecret: 'test',
     });
 
     expect(response).toMatchObject({
@@ -15,7 +17,7 @@ describe('run-in-lambda', () => {
     });
 
     expect(JSON.parse(response.body)).toMatchObject({
-      documentation_url: 'https://www.unfurl.page/documentation',
+      documentation_url: 'http://ui.example.com/documentation',
     });
   });
 });

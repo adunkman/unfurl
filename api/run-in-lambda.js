@@ -1,8 +1,17 @@
 const server = require('./server/index');
+
 const config = {
   host: process.env.HOST,
-  logLevel: process.env.LOG_LEVEL || 'info',
+  port: undefined,
+  logLevel: process.env.LOG_LEVEL,
+  isProduction: true,
+  uiUrl: process.env.UI_URL,
   dynamoDBEndpoint: 'https://dynamodb.us-east-1.amazonaws.com',
+  adminEmailsCsv: process.env.ADMIN_EMAILS_CSV,
+  useTestAuthentication: false,
+  githubClientId: process.env.AUTH_GITHUB_CLIENT_ID,
+  githubClientSecret: process.env.AUTH_GITHUB_CLIENT_SECRET,
+  cookieEncryptionSecret: process.env.COOKIE_ENCRYPTION_SECRET,
 };
 
 exports.handler = async (event, options = {}) => {
