@@ -77,5 +77,5 @@ secrets-edit: ## 🔒 Edits secrets passed to Terraform
 help:
 	@echo "Usage: make [task]\n\nAvailable tasks:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
-	@echo "\n\033[33m(🔒) These tasks require AWS credentials configured via environment varaibles.\033[0m"
+	@echo "\n\033[33m(🔒) These tasks require AWS credentials configured via environment variables.\033[0m"
 	@echo "\033[33m(🥾) These tasks are included in the bootstrap task.\033[0m"

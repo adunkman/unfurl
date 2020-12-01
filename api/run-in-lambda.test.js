@@ -5,6 +5,8 @@ describe('run-in-lambda', () => {
   it('handles a api gateway v2 event for a request to the index', async () => {
     const response = await handler(request, {
       logLevel: 'fatal',
+      githubClientId: 'test',
+      githubClientSecret: 'test',
     });
 
     expect(response).toMatchObject({
