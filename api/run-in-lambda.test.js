@@ -15,7 +15,7 @@ describe('run-in-lambda', () => {
     });
 
     expect(JSON.parse(response.body)).toMatchObject({
-      documentation_url: 'https://www.unfurl.page/documentation',
+      documentation_url: 'http://ui.example.com/documentation',
     });
   });
 });

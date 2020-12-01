@@ -1,19 +1,30 @@
 const ApiKey = require('../../models/ApiKey');
+const UserScope = require('../../models/UserScope');
 
 module.exports = {
   method: 'GET',
   path: '/keys',
   options: {
+    auth: {
+      strategy: 'cookie',
+      access: {
+        entity: 'user',
+      },
+    },
     pre: [
       {
+        assign: 'keys',
         method: async request => {
-          if (request.auth.credentials.isAdmin()) {
+          const { credentials } = request.auth;
+
+          if (UserScope.isAdmin(credentials)) {
             return ApiKey.all();
           } else {
-            return ApiKey.where({ email: request.auth.credentials.email });
+            // TODO: allow querying for all user keys, instead of just keys
+            // attached to the user’s primary email.
+            return ApiKey.where({ email: credentials.user.emails[0] });
           }
         },
-        assign: 'keys',
       },
     ],
   },

@@ -3,4 +3,4 @@ RUN wget https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.li
 RUN chmod +x /bin/sops
 
 WORKDIR /terraform
-CMD ["terraform"]
+ENTRYPOINT ["./bin/entrypoint.sh"]

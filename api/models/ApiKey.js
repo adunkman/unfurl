@@ -17,20 +17,8 @@ module.exports = class ApiKey extends DynamoDBStoredModel {
     return this.attributes.owner_email;
   }
 
-  get isEmailConfirmed() {
-    return this.attributes.owner_email_confirmed;
-  }
-
-  get role() {
-    return this.attributes.role;
-  }
-
   get createdAt() {
     return new Date(this.attributes.created_at);
-  }
-
-  isAdmin() {
-    return this.role === 'admin';
   }
 
   static async create({ email }) {
@@ -38,8 +26,6 @@ module.exports = class ApiKey extends DynamoDBStoredModel {
       api_key: uuidV4(),
       api_version: 1,
       owner_email: email,
-      owner_email_confirmed: false,
-      role: 'consumer',
       created_at: new Date().toISOString(),
     });
   }

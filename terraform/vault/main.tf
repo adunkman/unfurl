@@ -8,7 +8,3 @@ terraform {
 }
 
 provider "sops" {}
-
-data "sops_file" "internal" {
-  source_file = "vault/internal.enc.yml"
-}

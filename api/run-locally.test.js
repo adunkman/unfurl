@@ -37,7 +37,7 @@ describe('run-locally', () => {
 
     expect(res.statusCode).toBe(200);
     expect(payload).toMatchObject({
-      documentation_url: 'https://www.unfurl.page/documentation',
+      documentation_url: 'http://0.0.0.0:1313/documentation',
     });
   });
 });

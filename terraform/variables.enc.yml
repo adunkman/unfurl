@@ -1,0 +1,18 @@
+TF_VAR_github_client_id: ENC[AES256_GCM,data:KBN1U66yoTyBl5rlz7OaQN2tAoQ=,iv:qloxOseXMdK9dpulrDeOlCeSrdezIesg5dy5RxQr180=,tag:pDLvFDNOrHTtCiKUZzjsJw==,type:str]
+TF_VAR_github_client_secret: ENC[AES256_GCM,data:Hjy1BvCRuYPpmwovKYo59niI6K3c2fFBPeBxqURKr3tzJ0igFAPqNA==,iv:DuxO8+LvPW1YsSwYI5E+S71duZqgh4SpoqrqbQaHiyE=,tag:KEyhxpzFbsy6lmS3ntIA0w==,type:str]
+TF_VAR_admin_emails_csv: ENC[AES256_GCM,data:PIoDP1YwmDidO+/7UXyursO+,iv:FPWnXFMNGbor6mgNNCobjyQZFqu5rNiHFTmYkkAdsGc=,tag:lOO4U7j/5ZU9UW8++bU1Kw==,type:str]
+TF_VAR_cookie_encryption_secret: ENC[AES256_GCM,data:NAsg/HG5+obAKA+HWZLsQ9HVD3DBUJcwywRezROyxOtKxb0u247/adtv,iv:tH4LNEJhyMK4euLoO1oJzULjzBVI3IhFd+8hKeNOKc8=,tag:tp/gwx5XMi3GoXLcSR1YOQ==,type:str]
+sops:
+  kms:
+    - arn: arn:aws:kms:us-east-1:885514992300:key/f8193811-a18f-4d06-9389-2c9af5c27f7d
+      created_at: '2020-11-30T00:04:32Z'
+      enc: AQICAHizRBYMo3Bcgz49l0iMd+74y6vJBpikku4vUDiv5PrQEQGrDar3nIilOWk113vdAm0QAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMGcFrpY2rJ1j9qv/XAgEQgDumPKPsvchiIFTzPWsnb8JVYt9T0s511mnDqMMBS8A0VTVgSF+nFOh0KR4Vw/7vPgXleVX5aifX02O8TQ==
+      aws_profile: ''
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  lastmodified: '2020-12-01T03:06:07Z'
+  mac: ENC[AES256_GCM,data:Xz1rxNWBn57vql1309oQVLhKu2QbDHzZ3LMitLT2tXUAef0XZa40Lr4H/NK+qfR/U8OXlw0Brvb8xAvZVoLVRP9lHbXFTX06ZQ9vU2JX9Hz9bkcgF0FOm16lpmvQ8N/pGzqvppYRBdofdh7GrJION1v2ubkrMDy9bY3FpSCuz80=,iv:OtdfW3RslCVAFok4BWiKv0pQ99/DXQ2yimxF/aA0hYM=,tag:CRL2B+lNVfhA2D5bJDXdAw==,type:str]
+  pgp: []
+  unencrypted_suffix: _unencrypted
+  version: 3.6.1

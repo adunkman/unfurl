@@ -8,7 +8,7 @@
     "build": "npm run build:webpack && npm run build:zip",
     "build:webpack": "webpack --config webpack.config.js",
     "build:zip": "(cd ../ && zip -r tmp/dist/api.zip api/dist/)",
-    "test": "NODE_ENV=test jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,10 +38,12 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "@hapi/bell": "^12.1.1",
     "@hapi/boom": "^9.1.0",
+    "@hapi/cookie": "^11.0.2",
     "@hapi/hapi": "^20.0.2",
     "@hapi/wreck": "^17.0.0",
-    "aws-sdk": "^2.792.0",
+    "aws-sdk": "^2.799.0",
     "hapi-auth-bearer-token": "^8.0.0",
     "hapi-pino": "^8.3.0",
     "joi": "^17.3.0",

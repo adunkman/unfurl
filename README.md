@@ -36,6 +36,23 @@ make start
 
 Use <kbd>CONTROL</kbd> + <kbd>C</kbd> to shutdown the application.
 
+#### Testing authentication locally
+
+To test endpoints that require key authentication, use API key `test-consumer-token`.
+
+For GitHub authentication, [configure a test OAuth application](https://github.com/settings/applications/new) and add the credentials to a new file called `.env` to be loaded automatically. If you’d like your key to be authorized as an administrator, add your GitHub email to `ADMIN_EMAILS_CSV` as well.
+
+- Homepage URL: http://0.0.0.0:3000
+- Application callback URL: http://0.0.0.0:3000/sessions/new
+
+```
+AUTH_GITHUB_CLIENT_ID=
+AUTH_GITHUB_CLIENT_SECRET=
+ADMIN_EMAILS_CSV=
+```
+
+Restart the server if running.
+
 ### Additional development commands
 
 See all available development commands by running:

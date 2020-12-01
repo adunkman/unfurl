@@ -3,7 +3,7 @@ const ApiKey = require('../../models/ApiKey');
 
 module.exports = {
   name: 'unfurl/plugins/authKey',
-  register: async (server, options) => {
+  register: async (server, { useTestAuthentication }) => {
     await server.register(require('hapi-auth-bearer-token'));
 
     server.auth.strategy('key', 'bearer-access-token', {
@@ -11,7 +11,7 @@ module.exports = {
       allowQueryToken: true,
       tokenType: 'Key',
       validate: async (request, token, h) => {
-        if (process.env.NODE_ENV === 'test') {
+        if (useTestAuthentication) {
           return testAuthentication(token);
         }
 
@@ -38,7 +38,7 @@ module.exports = {
   },
 };
 
-const testAuthentication = () => {
+const testAuthentication = token => {
   if (token === 'test-consumer-token') {
     return {
       isValid: true,
@@ -46,22 +46,6 @@ const testAuthentication = () => {
         api_key: token,
         api_version: 1,
         owner_email: 'consumer@example.com',
-        owner_email_confirmed: true,
-        role: 'consumer',
-        created_at: new Date().toISOString(),
-      }),
-    };
-  }
-
-  if (token === 'test-admin-token') {
-    return {
-      isValid: true,
-      credentials: new ApiKey({
-        api_key: token,
-        api_version: 1,
-        owner_email: 'admin@example.com',
-        owner_email_confirmed: true,
-        role: 'admin',
         created_at: new Date().toISOString(),
       }),
     };

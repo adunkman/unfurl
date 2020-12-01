@@ -4,7 +4,7 @@ describe('GET /pages', () => {
   let api;
 
   beforeAll(async () => {
-    api = await server.init();
+    api = await server.init({ useTestAuthentication: true });
   });
 
   it('requires authorization', async () => {

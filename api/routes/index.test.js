@@ -16,12 +16,11 @@ describe('GET /', () => {
     const payload = JSON.parse(response.payload);
 
     expect(response.statusCode).toBe(200);
-
-    expect(payload).toHaveProperty(
-      'documentation_url',
-      'https://www.unfurl.page/documentation',
+    expect(payload).toEqual(
+      expect.objectContaining({
+        documentation_url: 'http://ui.example.com/documentation',
+        pages_url: 'http://api.example.com/pages',
+      }),
     );
-
-    expect(payload).toHaveProperty('page_url', 'http://example.com/pages');
   });
 });

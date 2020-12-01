@@ -20,6 +20,11 @@ resource "aws_lambda_function" "api_lambda" {
       NODE_ENV = "production"
       NODE_OPTIONS = "--enable-source-maps"
       HOST = "api.unfurl.page"
+      UI_URL = "https://www.unfurl.page"
+      AUTH_GITHUB_CLIENT_ID = var.github_client_id
+      AUTH_GITHUB_CLIENT_SECRET = var.github_client_secret
+      ADMIN_EMAILS_CSV = var.admin_emails_csv
+      COOKIE_ENCRYPTION_SECRET = var.cookie_encryption_secret
     }
   }
 

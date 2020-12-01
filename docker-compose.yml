@@ -13,6 +13,9 @@ services:
     environment:
       AWS_ACCESS_KEY_ID: fake-local-key
       AWS_SECRET_ACCESS_KEY: fake-local-secret
+      AUTH_GITHUB_CLIENT_ID: '${AUTH_GITHUB_CLIENT_ID}'
+      AUTH_GITHUB_CLIENT_SECRET: '${AUTH_GITHUB_CLIENT_SECRET}'
+      ADMIN_EMAILS_CSV: '${ADMIN_EMAILS_CSV}'
       PORT: 3000
       HOST: '0.0.0.0'
 

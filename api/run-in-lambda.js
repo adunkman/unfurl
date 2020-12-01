@@ -1,18 +1,17 @@
-const { DynamoDB } = require('aws-sdk');
 const server = require('./server/index');
 
 const config = {
   host: process.env.HOST,
+  port: undefined,
+  logLevel: process.env.LOG_LEVEL,
+  isProduction: true,
   uiUrl: process.env.UI_URL,
-  logLevel: process.env.LOG_LEVEL || 'info',
-};
-
-const services = {
-  dynamoDB: new DynamoDB({
-    apiVersion: '2012-08-10',
-    region: 'us-east-1',
-    endpoint: 'https://dynamodb.us-east-1.amazonaws.com',
-  }),
+  dynamoDBEndpoint: 'https://dynamodb.us-east-1.amazonaws.com',
+  adminEmailsCsv: process.env.ADMIN_EMAILS_CSV,
+  useTestAuthentication: false,
+  githubClientId: process.env.AUTH_GITHUB_CLIENT_ID,
+  githubClientSecret: process.env.AUTH_GITHUB_CLIENT_SECRET,
+  cookieEncryptionSecret: process.env.COOKIE_ENCRYPTION_SECRET,
 };
 
 exports.handler = async (event, options = {}) => {
@@ -26,7 +25,7 @@ exports.handler = async (event, options = {}) => {
     payload: Buffer.from(event.body || '', 'base64').toString(),
   };
 
-  const api = await server.init({ ...config, ...options }, services);
+  const api = await server.init({ ...config, ...options });
   const response = await api.inject(request);
 
   return {

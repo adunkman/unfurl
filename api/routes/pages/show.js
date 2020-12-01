@@ -7,6 +7,12 @@ module.exports = {
   method: 'GET',
   path: '/pages',
   options: {
+    auth: {
+      strategy: 'key',
+      access: {
+        entity: 'app',
+      },
+    },
     validate: {
       query: Joi.object({
         url: Joi.string()
@@ -16,6 +22,7 @@ module.exports = {
     },
     pre: [
       {
+        assign: 'html',
         method: async request => {
           const client = httpClient(request.log.bind(request));
           const url = request.query.url;
@@ -37,7 +44,6 @@ module.exports = {
             }
           }
         },
-        assign: 'html',
       },
     ],
   },

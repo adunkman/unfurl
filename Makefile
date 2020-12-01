@@ -18,6 +18,10 @@ start: ## Runs the full application stack locally
 test: ## Run automated tests
 	@$(DOCKER_COMPOSE_ALL) run api run test
 
+.PHONY: test-watch
+test-watch: ## Run automated tests in watch mode
+	@$(DOCKER_COMPOSE_ALL) run api run test -- --watchAll
+
 .PHONY: lint
 lint: ## Check files for adherence style rules
 	@./node_modules/.bin/prettier --check .
