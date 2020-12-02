@@ -2,6 +2,7 @@
 .env
 tmp
 dist
+ui/resources
 node_modules
 *.tfstate
 *.tfstate.backup

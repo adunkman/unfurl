@@ -1,0 +1,4 @@
+{{- $opts := dict "targetPath" . "target" "es2016" -}}
+{{- $built := resources.Get . | js.Build $opts -}}
+{{- $script := $built | fingerprint "sha512" -}}
+<script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>

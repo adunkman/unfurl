@@ -13,6 +13,9 @@ module.exports = {
         entity: 'app',
       },
     },
+    cors: {
+      origin: ['*://localhost:*', '*://0.0.0.0:*', '*://127.0.0.1:*'],
+    },
     validate: {
       query: Joi.object({
         url: Joi.string()
