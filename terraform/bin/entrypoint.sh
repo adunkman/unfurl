@@ -1,4 +1,4 @@
 #!/bin/sh
 set -e
 
-sops exec-env variables.enc.yml "terraform $@"
+sops exec-env variables.enc.yml "terraform $*"
