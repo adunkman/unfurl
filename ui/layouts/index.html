@@ -2,13 +2,17 @@
 
 {{- define "body" -}}
   <div class="hero">
-    <div class="hero-wrapper">
+    {{ partial "body/header.html" . }}
+    <div class="page-wrapper">
       <p>{{ .Summary }}</p>
     </div>
   </div>
+
   <main class="page-section">
-    <article class="article grid-container">
+    <article class="page-wrapper">
       {{ .Content | markdownify }}
     </article>
   </main>
+
+  {{ partial "body/footer.html" . }}
 {{- end -}}

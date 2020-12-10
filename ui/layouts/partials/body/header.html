@@ -1,0 +1,26 @@
+<header class="page-header">
+  <div class="page-wrapper">
+    <div class="banner" data-controller="menu" data-action="keydown->menu#closeIfEscape">
+      <h1>
+        <a href="{{ relref . "/" }}" class="{{ if .IsHome }}item-current{{end}}">
+          {{ .Site.Title }}
+        </a>
+      </h1>
+      <div class="primary-menu-button-wrapper">
+        <button class="primary-menu-button" data-action="click->menu#open">Menu</button>
+        <div class="primary-menu-overlay" data-action="click->menu#close" data-menu-target="overlay"></div>
+      </div>
+      <nav role="navigation" class="primary-menu" data-menu-target="container">
+        <div class="primary-menu-close-wrapper">
+          <button class="primary-menu-close-button" data-action="click->menu#close">Close</button>
+        </div>
+
+        <div class="primary-menu-items">
+          <a href="{{ relref . "/" }}" class="primary-menu-item {{ if .IsHome }}item-current{{end}}">Home</a>
+          <a href="{{ relref . "documentation" }}" class="primary-menu-item {{ if eq .Section "documentation" }}item-current{{end}}">Documentation</a>
+          <a href="{{ relref . "signup" }}" class="button primary-menu-call-to-action" data-controller="callToAction" data-account-href="{{ relref . "account" }}">Get a key</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,10 @@
+<section class="dialog is-hidden" data-controller="requireAuthentication">
+  <div class="dialog-contents">
+    <h1>Hello, stranger!</h1>
+    <p>You must log in to continue. If you were previously logged in, your session has expired.</p>
+    <div class="button-group dialog-button-group">
+      <a href="{{ relref . "/" }}" class="button button-link">Go to the homepage</a>
+      <a href="{{ .Site.Params.apiUrl }}/sessions/new?return_to=[currentPath]" class="button button-primary" data-requireAuthentication-target="currentPath">Log in with GitHub</a>
+    </div>
+  </div>
+</section>

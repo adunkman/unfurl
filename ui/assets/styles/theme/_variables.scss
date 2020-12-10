@@ -1,0 +1,46 @@
+$page-max-width: 1080px;
+
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 1024px;
+
+@mixin only-mobile {
+  @media (max-width: $tablet-breakpoint - 1px) {
+    @content;
+  }
+}
+
+@mixin min-width-tablet {
+  @media (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin mid-width-desktop {
+  @media (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+html {
+  --theme-foreground-color: 0, 0, 0;
+  --theme-background-color-front: 255, 255, 255;
+  --theme-background-color: 252, 252, 252;
+  --theme-background-color-back: 240, 240, 240;
+
+  --theme-link-color: 0, 118, 214;
+  --theme-link-hover-color: 11, 71, 120;
+  --theme-link-active-color: 17, 47, 78;
+  --theme-link-visited-color: 74, 118, 180;
+
+  @media (prefers-color-scheme: dark) {
+    --theme-foreground-color: 255, 255, 255;
+    --theme-background-color-front: 30, 30, 30;
+    --theme-background-color: 18, 18, 18;
+    --theme-background-color-back: 0, 0, 0;
+
+    --theme-link-color: 88, 180, 255;
+    --theme-link-hover-color: 36, 146, 255;
+    --theme-link-active-color: 0, 118, 214;
+    --theme-link-visited-color: 152, 175, 210;
+  }
+}

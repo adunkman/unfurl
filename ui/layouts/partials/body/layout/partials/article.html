@@ -1,0 +1,8 @@
+<article class="article">
+  <header class="article-header">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Summary }}</p>
+  </header>
+
+  {{ .Content | markdownify }}
+</article>

@@ -34,6 +34,15 @@ lint-fix: ## Automatically fix any style rule violations
 build: ## Generate compiled application files to prepare for a deployment
 	@$(DOCKER_COMPOSE_ALL) run api run build
 
+.PHONY: sh
+sh: ## Starts a shell to run ad-hoc commands within a docker image
+ifdef container
+	@$(DOCKER_COMPOSE_ALL) run --entrypoint sh $(container)
+else
+	@echo "No target container specified.\n\nUsage: make container=[target] sh"
+	@echo "\nAny named container within docker-compose.yml or docker-compose.tasks.yml is valid."
+endif
+
 .PHONY: npm-install
 npm-install: ## 🥾 Installs development npm packages
 	@npm install

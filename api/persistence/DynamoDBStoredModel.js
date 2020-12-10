@@ -10,6 +10,17 @@ module.exports = class DynamoDBStoredModel {
     return { ...this.attributes };
   }
 
+  async save() {
+    await DynamoDBStoredModel.adapter
+      .putItem({
+        TableName: this.constructor.tableName,
+        Item: marshall(this.toJSON()),
+      })
+      .promise();
+
+    return this;
+  }
+
   static configure(dynamoDBEndpoint) {
     this.adapter = new DynamoDB({
       apiVersion: '2012-08-10',

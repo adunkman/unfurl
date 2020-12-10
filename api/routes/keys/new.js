@@ -11,23 +11,25 @@ module.exports = {
         entity: 'user',
       },
     },
+    cors: {
+      origin: ['*://localhost:*', '*://0.0.0.0:*', '*://127.0.0.1:*'],
+      credentials: true,
+    },
     validate: {
       payload: Joi.object({
-        email: Joi.string().email(),
+        owner_email: Joi.string().email().required(),
       }),
     },
     pre: [
       {
         assign: 'key',
         method: async request => {
-          return ApiKey.create({ email: request.payload.email });
+          return ApiKey.create({ email: request.payload.owner_email });
         },
       },
     ],
   },
   handler: async request => {
-    return {
-      key: request.pre.key,
-    };
+    return request.pre.key;
   },
 };

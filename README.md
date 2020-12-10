@@ -1,6 +1,6 @@
 # Unfurl.page
 
-> 🚧 This project is still in active development.
+> 🚧 This project is still in active development and should not be considered stable.
 
 API (and accompanying documentation) for social media-style expansion of links with site-defined metadata.
 

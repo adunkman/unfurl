@@ -1,4 +1,5 @@
-{{- $opts := dict "targetPath" . "target" "es2016" -}}
+{{- $params := dict "API_URL" site.Params.apiUrl "API_KEY" site.Params.apiKey "NODE_ENV" hugo.Environment -}}
+{{- $opts := dict "targetPath" . "target" "es2016" "params" $params -}}
 {{- $built := resources.Get . | js.Build $opts -}}
 {{- $script := $built | fingerprint "sha512" -}}
 <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>

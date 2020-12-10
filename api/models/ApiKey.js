@@ -17,6 +17,10 @@ module.exports = class ApiKey extends DynamoDBStoredModel {
     return this.attributes.owner_email;
   }
 
+  set email(value) {
+    this.attributes.owner_email = value;
+  }
+
   get createdAt() {
     return new Date(this.attributes.created_at);
   }
