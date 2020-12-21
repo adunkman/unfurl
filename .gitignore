@@ -3,6 +3,7 @@
 tmp
 dist
 ui/resources
+ui/public
 node_modules
 *.tfstate
 *.tfstate.backup

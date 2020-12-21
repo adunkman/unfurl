@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build:
-    name: Build
+  build-api:
+    name: Build API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,6 +25,26 @@ jobs:
           name: API Lambda bundle
           if-no-files-found: error
           path: tmp/dist/*.zip
+
+  build-ui:
+    name: Build website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build website docker image
+        run: docker-compose build ui
+
+      - name: Build website files
+        run: docker-compose run ui build
+
+      - name: Store website as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Website
+          if-no-files-found: error
+          path: ui/public/**/*
 
   test:
     name: Test
@@ -73,7 +93,7 @@ jobs:
   plan:
     name: Plan deployment
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-api
     if: github.repository_owner == 'adunkman'
     steps:
       - name: Checkout code
