@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const Boom = require('@hapi/boom');
-const { extractMetadata, summarizeMetadata } = require('../../util/metadata');
+const { parseMetadata } = require('../../util/metadata');
 const { httpClient } = require('../../util/httpClient');
 
 module.exports = {
@@ -51,10 +51,6 @@ module.exports = {
     ],
   },
   handler: async request => {
-    const meta = extractMetadata(request.pre.html);
-    return {
-      ...summarizeMetadata(meta),
-      meta,
-    };
+    return parseMetadata(request.query.url, request.pre.html);
   },
 };

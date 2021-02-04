@@ -6,6 +6,9 @@ exports.httpClient = logger => {
     gunzip: true,
     redirects: 5,
     timeout: 5000,
+    headers: {
+      'user-agent': 'Mozilla/5.0 (+https://unfurl.page/robots) Chrome/1000',
+    },
   });
 
   client.events.on('response', (error, details) => {
