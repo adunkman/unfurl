@@ -24,3 +24,16 @@ services:
     command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
     volumes:
       - ./tmp/dynamodb:/data
+
+  ui:
+    build: ./ui
+    volumes:
+      - ./ui:/ui
+      - /ui/node_modules
+      - /ui/resources
+    depends_on:
+      - api
+    ports:
+      - '1313:1313'
+    environment:
+      HUGO_ENV: 'development'

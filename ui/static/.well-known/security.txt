@@ -1,0 +1,18 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:adunkman@gmail.com
+Encryption: https://www.dunkman.me/key.asc
+Preferred-Languages: en
+Canonical: https://www.unfurl.page/.well-known/security.txt
+Policy: https://github.com/adunkman/unfurl/blob/main/SECURITY.md
+-----BEGIN PGP SIGNATURE-----
+
+wsBcBAABCgAGBQJfxuhLAAoJEM3/4AneASf4yuQH/0azECPva3wNUkQtxv4Bt4bN
+HP5ytELgPY2P6uXAnQHCgca2t+gpP8gtQ0GH7JaviXpt0Hec5VDd3OTgStftEg+x
+bU+x6A1RxIpyaPlT6j5cqGPesHqUyF5UGfiQ5T56IzZcmBR/iaGR5JSZX6nQPem4
+nXhigef8Ewuq+H6iIomAoN+kXTRc4WGv9xFFUdu2ei8sHuZxQOykXcqiY2tpZFaI
+PWv8u1OaoUKaIf+7Am+Tc9bHCM1vitRGKQkilZ62DfXOB8EuV7IP+hKBkULoIvUF
+gmnOZMbwVahG0JtYZ8xmYfQN3Z3+afotn7AeYNqTvXf2w0K2w9zMIfgxXvfoI4Y=
+=cTYo
+-----END PGP SIGNATURE-----

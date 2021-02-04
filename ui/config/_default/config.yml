@@ -1,0 +1,8 @@
+languageCode: en-us
+title: Unfurl.page
+
+baseURL: https://www.unfurl.page
+relativeURLs: true
+
+ignoreFiles:
+  - Dockerfile

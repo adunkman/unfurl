@@ -1,0 +1,18 @@
+.page-section {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: $page-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @include min-width-tablet {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}

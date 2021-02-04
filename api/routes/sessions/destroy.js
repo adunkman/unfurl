@@ -6,6 +6,10 @@ module.exports = {
       strategy: 'cookie',
       mode: 'try',
     },
+    cors: {
+      origin: ['*://localhost:*', '*://0.0.0.0:*', '*://127.0.0.1:*'],
+      credentials: true,
+    },
     pre: [
       (request, h) => {
         request.cookieAuth.clear();

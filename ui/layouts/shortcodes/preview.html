@@ -1,0 +1,10 @@
+<div data-controller="preview">
+  <form method="GET" action="{{ .Site.Params.apiUrl }}/pages" data-action="submit->preview#update">
+    <input type="url" name="url" placeholder="https://www.example.com" required>
+    {{ "<!-- This key is restricted to use on this domain via CORS. -->" | safeHTML }}
+    <input type="hidden" name="key" value="{{ .Site.Params.apiKey }}">
+    <button>{{ .Get "text" }}</button>
+  </form>
+
+  <div class="output" data-preview-target="output"></div>
+</div>

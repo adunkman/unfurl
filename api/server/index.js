@@ -58,6 +58,7 @@ exports.init = async ({
   server.route(require('../routes/index'));
 
   server.route(require('../routes/keys/destroy'));
+  server.route(require('../routes/keys/edit'));
   server.route(require('../routes/keys/index'));
   server.route(require('../routes/keys/new'));
   server.route(require('../routes/keys/show'));

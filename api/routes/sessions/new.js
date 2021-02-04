@@ -55,6 +55,12 @@ module.exports = {
 
     request.cookieAuth.set(session);
 
-    return session;
+    const { return_to } = request.auth.credentials.query;
+
+    if (return_to) {
+      return h.redirect(`${request.server.settings.app.uiUrl}${return_to}`);
+    } else {
+      return session;
+    }
   },
 };

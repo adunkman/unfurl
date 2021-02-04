@@ -1,0 +1,9 @@
+{
+  "name": "ui",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "stimulus": "^2.0.0"
+  }
+}

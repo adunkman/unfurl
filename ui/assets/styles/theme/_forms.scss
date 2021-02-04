@@ -1,0 +1,87 @@
+.form-editor {
+  display: block;
+  max-width: 50ch;
+
+  .form-label,
+  .form-input,
+  .form-select {
+    display: block;
+    width: 100%;
+  }
+
+  .form-input,
+  .form-select {
+    margin: 2rem 0;
+  }
+
+  .form-label {
+    margin: 1rem 0 0.5rem;
+  }
+
+  .form-label + .form-input,
+  .form-label + .form-select {
+    margin-top: 0.5rem;
+  }
+}
+
+.form-label {
+  display: inline-block;
+}
+
+.form-label-description {
+  font-size: 0.9rem;
+  color: rgba(var(--theme-foreground-color), 0.5);
+}
+
+.form-input,
+.form-select {
+  display: inline-block;
+  background-color: rgba(var(--theme-background-color-front), 1);
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: normal;
+  line-height: inherit;
+  border: 1px rgba(var(--theme-foreground-color), 0.3) solid;
+  border-radius: 0.2rem;
+  padding: 0.5rem 0.7rem;
+  color: rgba(var(--theme-foreground-color), 0.9);
+  box-shadow: inset 1px 1px 1px 0px rgba(0, 0, 0, 0.05);
+
+  &[readonly],
+  &:disabled {
+    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.form-select {
+  background-image: linear-gradient(
+      135deg,
+      transparent 50%,
+      rgba(var(--theme-foreground-color), 0.3) 50%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(var(--theme-foreground-color), 0.3) 50%,
+      transparent 50%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      rgba(var(--theme-foreground-color), 0.3) 50%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(var(--theme-foreground-color), 0.3) 50%,
+      transparent 50%
+    );
+  background-position: calc(100% - 0.8rem - 5px) calc(1rem - 2px),
+    calc(100% - 0.8rem) calc(1rem - 2px),
+    calc(100% - 0.8rem - 5px) calc(1rem + 5px),
+    calc(100% - 0.8rem) calc(1rem + 5px);
+  background-size: 5px 5px, 5px 5px, 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: calc(1.5rem + 10px);
+}

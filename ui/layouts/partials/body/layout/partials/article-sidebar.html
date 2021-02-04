@@ -1,0 +1,7 @@
+{{- $currentPage := . -}}
+<nav class="article-sidebar-nav">
+  <a href="{{ .FirstSection.RelPermalink }}" class="article-sidebar-nav-item{{ if eq $currentPage.Permalink .FirstSection.Permalink }} is-current{{ end }}">{{ .FirstSection.Title }}</a>
+  {{ range .FirstSection.Pages }}
+    <a href="{{ .RelPermalink }}" class="article-sidebar-nav-item{{ if eq $currentPage.Permalink .Permalink }} is-current{{ end }}">{{ .Title }}</a>
+  {{ end }}
+</nav>

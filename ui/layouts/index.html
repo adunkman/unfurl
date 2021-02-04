@@ -1,0 +1,18 @@
+{{- define "page-class" -}} page-home {{- end -}}
+
+{{- define "body" -}}
+  <div class="hero">
+    {{ partial "body/header.html" . }}
+    <div class="page-wrapper">
+      <p>{{ .Summary }}</p>
+    </div>
+  </div>
+
+  <main class="page-section">
+    <article class="page-wrapper">
+      {{ .Content | markdownify }}
+    </article>
+  </main>
+
+  {{ partial "body/footer.html" . }}
+{{- end -}}

@@ -1,0 +1,9 @@
+{{- define "body" -}}
+  {{ partial "body/header.html" . }}
+
+  <main class="page-wrapper page-section">
+    {{ partial "body/layout/article.html" . }}
+  </main>
+
+  {{ partial "body/footer.html" . }}
+{{- end -}}

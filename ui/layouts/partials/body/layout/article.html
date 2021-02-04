@@ -1,0 +1,11 @@
+{{ if .Section }}
+  <div class="article-with-sidebar-wrapper">
+    {{ partial "body/layout/partials/article.html" . }}
+
+    <div class="article-sidebar">
+      {{ partial "body/layout/partials/article-sidebar.html" . }}
+    </div>
+  </div>
+{{ else }}
+  {{ partial "body/layout/partials/article.html" . }}
+{{ end }}
